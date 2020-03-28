@@ -10,12 +10,22 @@ function getDogImage(breed) {
 
 function displayResults(responseJson) {
   console.log(responseJson);
-  //replace the existing image with the new one
-  $('.results-img').replaceWith(
-    `<img src="${responseJson.message}" class="results-img">`
-  )
-  //display the results section
-  $('.results').removeClass('hidden');
+
+  if (responseJson.message = "Breed not found") {
+    alert('That breed wasn\'t found, please try another.');
+  } else {
+    //replace the existing image with the new one
+    $('.results').html(`<h2>Look at this dog!</h2>`);
+
+    let splitUrl = responseJson.message.split("/");
+    let breedName = splitUrl[4];
+    $('.results').append(`<h3>${breedName}</h3>`);
+
+    $('.results').append(
+      `<img src="${responseJson.message}" class="results-img" width="200" height="auto">`);
+    //display the results section
+    $('.results').removeClass('hidden');
+  }
 }
 
 function watchForm() {
